@@ -27,11 +27,11 @@ node 'web' {
   		password => postgresql_password('post', 'post'),}
 
   	postgresql::server::pg_hba_rule { 'allow application network to access database':
-  		description => "Open up PostgreSQL for access from 10.12.1.101/32",
+  		description => "Open up PostgreSQL for access from 10.11.1.100/32",
   		type        => 'host',
   		database    => 'all',
   		user        => 'all',
-  		address     => '10.12.1.101/32',
+  		address     => '10.11.1.100/32',
   		auth_method => 'md5',
 }	
  }
