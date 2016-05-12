@@ -5,18 +5,19 @@
 2. [Applicazione](#applicazione)
     * [Descrizione](#applicazione)
     * [Tecnologie utilizzate](#applicazione)
-3. [Provisioning](#provisioning)
+3. [Configurazione VM](#configurazione)
+4. [Provisioning](#provisioning)
     * [Apache TomEE](#apache-tomee)
       * [Il ruolo della cartella condivisa](#cartella-condivisa)
       * [Avvio Automatico](#avvio-automatico)
     * [Postgres](#postgres)
       * [Setup](#setup)
       * [Creazione di un database](#creazione-di-un-database)
-4. [Installazione](#installazione)
-5. [Comandi utili](#comandi-utili)
-6. [Todo](#todo)
-7. [Bug e problemi noti](#bug-e-problemi-noti)
-8. [Realizzatori](#realizzatori)
+5. [Installazione](#installazione)
+6. [Comandi utili](#comandi-utili)
+7. [Todo](#todo)
+8. [Bug e problemi noti](#bug-e-problemi-noti)
+9. [Realizzatori](#realizzatori)
 
 ### Obiettivi
 
@@ -36,6 +37,9 @@ L'applicazione, seguendo le specifiche, è minimale. Nella realizzazione è stat
 * [JSP] - Per la programmazione web
 
 N.B.: Per la sua esecuzione è richiesta l'installazione di JAVA 8
+
+### Applicazione
+Per la configurazione delle macchine si è scelto di dichiarare le specifiche di ciascuna macchina in un file .JSON, al fine di garantire una maggiore leggibilità del Vagrantfile. Nel file .JSON sono quindi state fornite le informazioni necessarie a Vagrant per costruire le due VM 'db' e 'web'. Ciascun record all'interno del file contiene coppie chiave/valore per il nome delle VM, indirizzi ip, forwarding ports e impostazioni di memoria. Per aggiungere una nuova VM è sufficiente inserire un altro record al file, con le caratteristiche desiderate.
 
 ### Provisioning
 Per la parte di provisioning si è fatto uso di [Puppet][puppet]. L'obiettivo principale del progetto è stato infatti quello di lanciare in esecuzione automatica l'intero ambiente attraverso un unico comando. 
