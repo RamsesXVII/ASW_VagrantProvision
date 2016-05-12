@@ -38,7 +38,7 @@ L'applicazione, seguendo le specifiche, è minimale. Nella realizzazione è stat
 
 N.B.: Per la sua esecuzione è richiesta l'installazione di JAVA 8
 
-### Applicazione
+### Configurazione
 Per la configurazione delle macchine si è scelto di dichiarare le specifiche di ciascuna macchina in un file .JSON, al fine di garantire una maggiore leggibilità del Vagrantfile. Nel file .JSON sono quindi state fornite le informazioni necessarie a Vagrant per costruire le due VM 'db' e 'web'. Ciascun record all'interno del file contiene coppie chiave/valore per il nome delle VM, indirizzi ip, forwarding ports e impostazioni di memoria. Per aggiungere una nuova VM è sufficiente inserire un altro record al file, con le caratteristiche desiderate.
 
 ### Provisioning
