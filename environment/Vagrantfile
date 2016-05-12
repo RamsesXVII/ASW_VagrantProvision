@@ -1,39 +1,32 @@
+# Require JSON module
+require 'json'
+ 
+# Read YAML file with box details
+servers = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'servers.json')))
+
 Vagrant.configure(2) do |config|
 	# Ubuntu 14.04
 	config.vm.box = "ubuntu/trusty64"
 	config.vm.synced_folder "../project/", "/home/vagrant/project", :mount_options => ["dmode=777", "fmode=777"]
 
-	# WebServer
-	config.vm.define "web" do |web|
-		web.vm.hostname = "web"
-		web.vm.network "private_network", ip: "10.11.1.100", virtualbox__intnet: true
 
-		web.vm.provider "virtualbox" do |v| 
-			v.memory = 1024 
-		end 
+	servers.each do |server|
+    config.vm.define server['name'] do |srv|
+      srv.vm.hostname = server['name']
 
-		web.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
-		web.vm.network "forwarded_port", guest: 8080, host: 2212
-		web.ssh.forward_agent = true       
+      srv.vm.network 'private_network', ip: server['ip_addr']
+      srv.vm.network "forwarded_port",guest: server['fp_guest1'],host: server['fp_host1'], id: 'ssh', auto_correct: true
+      srv.vm.network "forwarded_port",guest: server['fp_guest2'],host: server['fp_host2']
+      srv.ssh.forward_agent = true 
 
-	end
+      srv.vm.provider "virtualbox" do |vmw|
+        vmw.memory = server['ram']
+      end # srv.vm.provider
+    end # config.vm.define
+  end # servers.each
 
-	# DataBase
-	config.vm.define "db" do |db|   
-		db.vm.hostname = "db"    
-		db.vm.network "private_network", ip: "10.11.1.201", virtualbox__intnet: true
-		db.vm.provider "virtualbox" do |v| 
-			v.memory = 1024 
-		end 
 
-		db.vm.network "forwarded_port", guest: 22, host: 2221, id: 'ssh', auto_correct: true
-		db.vm.network "forwarded_port", guest: 5432, host: 2222
-		db.ssh.forward_agent = true 
-
-	end
-
-	# Puppet e shell provisioning
-  
+ # Puppet e shell provisioning
   config.vm.provision :shell do |shell|
 		shell.inline = "mkdir -p /etc/puppet/modules;
     									puppet module install puppetlabs/apt

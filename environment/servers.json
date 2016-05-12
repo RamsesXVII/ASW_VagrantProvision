@@ -1,0 +1,23 @@
+[
+{
+        "name": "web",
+        "box": "ubuntu/trusty64",
+        "ram": 1024,
+        "ip_addr": "10.11.1.100",
+	    "fp_guest1": 22,
+        "fp_host1": 2211,
+        "fp_guest2": 8080,
+        "fp_host2": 2212
+    },
+    
+    {
+        "name": "db",
+        "box": "ubuntu/trusty64",
+        "ram": 1024,
+        "ip_addr": "10.11.1.201",
+        "fp_guest1": 22,
+        "fp_host1": 2221,
+        "fp_guest2": 5432,
+        "fp_host2": 2222
+    }
+]
